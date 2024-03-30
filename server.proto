@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package server;
+
+service KeyValueStore {
+    rpc GetValue(ValueRequest) returns (ValueResponse);
+    rpc PutValue(ValueRequest) returns (ValueResponse);
+    rpc VoteRequest(VoteRequestMessage) returns (VoteResponseMessage);
+    rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+}
+
+message ValueRequest {
+    string payload = 1;
+}
+
+message ValueResponse {
+    string code = 1;
+    string payload = 2;
+}
+
+message VoteRequestMessage {
+    int32 term = 1;
+    int32 commitIdx = 2;
+    bool staged = 3;
+}
+
+message VoteResponseMessage {
+    bool choice = 1;
+    int32 term = 2;
+}
+
+message HeartbeatRequest {
+    int32 term = 1;
+    int32 commitIdx = 2;
+}
+
+message HeartbeatResponse {
+    int32 term = 1;
+    int32 commitIdx = 2;
+}
