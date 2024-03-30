@@ -1,0 +1,31 @@
+Node initialized
+Node http://127.0.0.1:5001 (follower) received an log request
+Node http://127.0.0.1:5001 (follower) received an commit request
+Node http://127.0.0.1:5001 (follower) received an log request
+Node http://127.0.0.1:5001 (follower) received an commit request
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5001 became the leader for term 100
+Node http://127.0.0.1:5001 became the leader for term 100
+Leader http://127.0.0.1:5001 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5001 lease renewal failed. Stepping Down.
+http://127.0.0.1:5001 Stepping down
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5001 became the leader for term 101
+Node http://127.0.0.1:5001 became the leader for term 101
+Node http://127.0.0.1:5001 became the leader for term 101
+Node http://127.0.0.1:5001 became the leader for term 102
+Leader http://127.0.0.1:5001 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5001 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5001 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5001 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5001 (follower) received an log request
+Node http://127.0.0.1:5001 (follower) received an commit request
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5001 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5001 became the leader for term 119
+Node http://127.0.0.1:5001 became the leader for term 119
+Node http://127.0.0.1:5001 became the leader for term 119

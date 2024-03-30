@@ -1,0 +1,6 @@
+log {'key': 'thinking', 'value': 'i am stressed'}
+commit {'key': 'thinking', 'value': 'i am stressed'}
+log {'key': 'doing', 'value': 'dscd ass'}
+commit {'key': 'doing', 'value': 'dscd ass'}
+log {'key': 'doing', 'value': 'dscd ass'}
+commit {'key': 'doing', 'value': 'dscd ass'}

@@ -1,0 +1,131 @@
+Node initialized
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 71
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 72
+Node http://127.0.0.1:5000 became the leader for term 72
+Node http://127.0.0.1:5000 (leader) received a PUT request
+Majority reached, replied to client, sending message to commit
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 73
+Node http://127.0.0.1:5000 became the leader for term 73
+Node http://127.0.0.1:5000 became the leader for term 73
+Node http://127.0.0.1:5000 became the leader for term 73
+Node http://127.0.0.1:5000 (leader) received a PUT request
+Majority reached, replied to client, sending message to commit
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 74
+Node http://127.0.0.1:5000 became the leader for term 74
+Node http://127.0.0.1:5000 became the leader for term 74
+Node http://127.0.0.1:5000 became the leader for term 74
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 76
+Node http://127.0.0.1:5000 became the leader for term 76
+Node http://127.0.0.1:5000 became the leader for term 76
+Node http://127.0.0.1:5000 became the leader for term 76
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 77
+Node http://127.0.0.1:5000 became the leader for term 77
+Node http://127.0.0.1:5000 became the leader for term 77
+Node http://127.0.0.1:5000 became the leader for term 77
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 78
+Node http://127.0.0.1:5000 became the leader for term 78
+Node http://127.0.0.1:5000 became the leader for term 78
+Node http://127.0.0.1:5000 became the leader for term 78
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 97
+Node http://127.0.0.1:5000 became the leader for term 97
+Node http://127.0.0.1:5000 became the leader for term 97
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 110
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 111
+Node http://127.0.0.1:5000 became the leader for term 111
+Node http://127.0.0.1:5000 became the leader for term 111
+Node http://127.0.0.1:5000 became the leader for term 111
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 112
+Node http://127.0.0.1:5000 became the leader for term 112
+Node http://127.0.0.1:5000 became the leader for term 112
+Node http://127.0.0.1:5000 became the leader for term 112
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+http://127.0.0.1:5000 Stepping down
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5000 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5000 became the leader for term 113
+Node http://127.0.0.1:5000 became the leader for term 113
+Node http://127.0.0.1:5000 became the leader for term 114
+Node http://127.0.0.1:5000 became the leader for term 114
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5000 (follower) received an log request
+Node http://127.0.0.1:5000 (follower) received an commit request

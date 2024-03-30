@@ -1,0 +1,229 @@
+Node initialized
+Node http://127.0.0.1:5002 (follower) received an log request
+Node http://127.0.0.1:5002 (follower) received an commit request
+Node http://127.0.0.1:5002 (follower) received an log request
+Node http://127.0.0.1:5002 (follower) received an commit request
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 85
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 85
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 86
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 86
+Node http://127.0.0.1:5002 became the leader for term 87
+Node http://127.0.0.1:5002 became the leader for term 87
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 87
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 became the leader for term 88
+Node http://127.0.0.1:5002 became the leader for term 88
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 88
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 became the leader for term 89
+Node http://127.0.0.1:5002 became the leader for term 89
+Node http://127.0.0.1:5002 became the leader for term 89
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 90
+Node http://127.0.0.1:5002 became the leader for term 90
+Node http://127.0.0.1:5002 became the leader for term 90
+Node http://127.0.0.1:5002 became the leader for term 90
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 became the leader for term 91
+Node http://127.0.0.1:5002 became the leader for term 91
+Node http://127.0.0.1:5002 became the leader for term 91
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 91
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 94
+Node http://127.0.0.1:5002 became the leader for term 94
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 94
+Node http://127.0.0.1:5002 became the leader for term 94
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 95
+Node http://127.0.0.1:5002 became the leader for term 95
+Node http://127.0.0.1:5002 became the leader for term 95
+Node http://127.0.0.1:5002 became the leader for term 95
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 96
+Node http://127.0.0.1:5002 became the leader for term 97
+Node http://127.0.0.1:5002 became the leader for term 97
+Node http://127.0.0.1:5002 became the leader for term 98
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 98
+Node http://127.0.0.1:5002 became the leader for term 98
+Node http://127.0.0.1:5002 became the leader for term 98
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 99
+Node http://127.0.0.1:5002 became the leader for term 99
+Node http://127.0.0.1:5002 became the leader for term 100
+Node http://127.0.0.1:5002 became the leader for term 100
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 102
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 103
+Node http://127.0.0.1:5002 became the leader for term 103
+Node http://127.0.0.1:5002 became the leader for term 103
+Node http://127.0.0.1:5002 became the leader for term 103
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 104
+Node http://127.0.0.1:5002 became the leader for term 104
+Node http://127.0.0.1:5002 became the leader for term 104
+Node http://127.0.0.1:5002 became the leader for term 104
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 became the leader for term 105
+Node http://127.0.0.1:5002 became the leader for term 105
+Node http://127.0.0.1:5002 became the leader for term 105
+http://127.0.0.1:5002 Stepping down
+Node http://127.0.0.1:5002 became the leader for term 105
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 106
+Node http://127.0.0.1:5002 became the leader for term 106
+Node http://127.0.0.1:5002 became the leader for term 106
+Node http://127.0.0.1:5002 became the leader for term 106
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 107
+Node http://127.0.0.1:5002 became the leader for term 107
+Node http://127.0.0.1:5002 became the leader for term 107
+Node http://127.0.0.1:5002 became the leader for term 107
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 108
+Node http://127.0.0.1:5002 became the leader for term 108
+Node http://127.0.0.1:5002 became the leader for term 108
+Node http://127.0.0.1:5002 became the leader for term 108
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+http://127.0.0.1:5002 Stepping down
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5002 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5002 became the leader for term 109
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 became the leader for term 110
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 became the leader for term 110
+Node http://127.0.0.1:5002 became the leader for term 110
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5002 lease renewal failed. Stepping Down.
+Node http://127.0.0.1:5002 (follower) received an log request
+Node http://127.0.0.1:5002 (follower) received an commit request

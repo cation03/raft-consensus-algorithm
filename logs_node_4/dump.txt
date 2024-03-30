@@ -1,0 +1,39 @@
+Node initialized
+Node http://127.0.0.1:5004 (follower) received an log request
+Node http://127.0.0.1:5004 (follower) received an commit request
+Node http://127.0.0.1:5004 (follower) received an log request
+Node http://127.0.0.1:5004 (follower) received an commit request
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5004 became the leader for term 115
+Node http://127.0.0.1:5004 became the leader for term 115
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+http://127.0.0.1:5004 Stepping down
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5004 became the leader for term 116
+Node http://127.0.0.1:5004 became the leader for term 116
+Node http://127.0.0.1:5004 became the leader for term 116
+Node http://127.0.0.1:5004 (leader) received a PUT request
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+Majority reached, replied to client, sending message to commit
+http://127.0.0.1:5004 Stepping down
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5004 became the leader for term 117
+Node http://127.0.0.1:5004 became the leader for term 117
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+Leader http://127.0.0.1:5004 lease renewal failed. Stepping Down.
+http://127.0.0.1:5004 Stepping down
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Leader http://127.0.0.1:5004 sending heartbeat & Renewing Lease
+Node http://127.0.0.1:5004 became the leader for term 118
+Node http://127.0.0.1:5004 became the leader for term 118
+Node http://127.0.0.1:5004 became the leader for term 118
+Node http://127.0.0.1:5004 became the leader for term 118

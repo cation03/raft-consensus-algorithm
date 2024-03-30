@@ -1,0 +1,2 @@
+log {'key': 'doing', 'value': 'dscd ass'}
+commit {'key': 'doing', 'value': 'dscd ass'}
