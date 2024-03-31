@@ -14,25 +14,43 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cserver.proto\x12\x06server\"\x1f\n\x0cValueRequest\x12\x0f\n\x07payload\x18\x01 \x01(\t\".\n\rValueResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0f\n\x07payload\x18\x02 \x01(\t\"E\n\x12VoteRequestMessage\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x11\n\tcommitIdx\x18\x02 \x01(\x05\x12\x0e\n\x06staged\x18\x03 \x01(\x08\"3\n\x13VoteResponseMessage\x12\x0e\n\x06\x63hoice\x18\x01 \x01(\x08\x12\x0c\n\x04term\x18\x02 \x01(\x05\"3\n\x10HeartbeatRequest\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x11\n\tcommitIdx\x18\x02 \x01(\x05\"4\n\x11HeartbeatResponse\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x11\n\tcommitIdx\x18\x02 \x01(\x05\x32\x8b\x02\n\rKeyValueStore\x12\x37\n\x08GetValue\x12\x14.server.ValueRequest\x1a\x15.server.ValueResponse\x12\x37\n\x08PutValue\x12\x14.server.ValueRequest\x1a\x15.server.ValueResponse\x12\x46\n\x0bVoteRequest\x12\x1a.server.VoteRequestMessage\x1a\x1b.server.VoteResponseMessage\x12@\n\tHeartbeat\x12\x18.server.HeartbeatRequest\x1a\x19.server.HeartbeatResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cserver.proto\"b\n\x12RequestVoteMessage\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x13\n\x0b\x63\x61ndidateId\x18\x02 \x01(\x05\x12\x14\n\x0clastLogIndex\x18\x03 \x01(\x05\x12\x13\n\x0blastLogTerm\x18\x04 \x01(\x05\"3\n\x13RequestVoteResponse\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x0e\n\x06result\x18\x02 \x01(\x08\"\x90\x01\n\x14\x41ppendEntriesMessage\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x10\n\x08leaderId\x18\x02 \x01(\x05\x12\x14\n\x0cprevLogIndex\x18\x03 \x01(\x05\x12\x13\n\x0bprevLogTerm\x18\x04 \x01(\x05\x12\x17\n\x07\x65ntries\x18\x05 \x03(\x0b\x32\x06.Entry\x12\x14\n\x0cleaderCommit\x18\x06 \x01(\x05\"8\n\x05\x45ntry\x12\x13\n\x0b\x63ommandType\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"5\n\x15\x41ppendEntriesResponse\x12\x0c\n\x04term\x18\x01 \x01(\x05\x12\x0e\n\x06result\x18\x02 \x01(\x08\"\x12\n\x10GetLeaderMessage\"<\n\x11GetLeaderResponse\x12\x10\n\x08leaderId\x18\x01 \x01(\x05\x12\x15\n\rleaderAddress\x18\x02 \x01(\t\" \n\x0eSuspendMessage\x12\x0e\n\x06period\x18\x01 \x01(\x05\"\x11\n\x0fSuspendResponse\"\x1c\n\rGetValMessage\x12\x0b\n\x03key\x18\x01 \x01(\t\"?\n\x0eGetValResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x12\n\x05value\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\x08\n\x06_value\"+\n\rSetValMessage\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"!\n\x0eSetValResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"B\n\x17RenewLeaderLeaseRequest\x12\x10\n\x08leaderId\x18\x01 \x01(\x05\x12\x15\n\rleaseDuration\x18\x02 \x01(\x03\"+\n\x18RenewLeaderLeaseResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\x88\x03\n\x0bRaftService\x12\x38\n\x0bRequestVote\x12\x13.RequestVoteMessage\x1a\x14.RequestVoteResponse\x12>\n\rAppendEntries\x12\x15.AppendEntriesMessage\x1a\x16.AppendEntriesResponse\x12\x32\n\tGetLeader\x12\x11.GetLeaderMessage\x1a\x12.GetLeaderResponse\x12,\n\x07Suspend\x12\x0f.SuspendMessage\x1a\x10.SuspendResponse\x12)\n\x06GetVal\x12\x0e.GetValMessage\x1a\x0f.GetValResponse\x12)\n\x06SetVal\x12\x0e.SetValMessage\x1a\x0f.SetValResponse\x12G\n\x10RenewLeaderLease\x12\x18.RenewLeaderLeaseRequest\x1a\x19.RenewLeaderLeaseResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'server_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_VALUEREQUEST']._serialized_start=24
-  _globals['_VALUEREQUEST']._serialized_end=55
-  _globals['_VALUERESPONSE']._serialized_start=57
-  _globals['_VALUERESPONSE']._serialized_end=103
-  _globals['_VOTEREQUESTMESSAGE']._serialized_start=105
-  _globals['_VOTEREQUESTMESSAGE']._serialized_end=174
-  _globals['_VOTERESPONSEMESSAGE']._serialized_start=176
-  _globals['_VOTERESPONSEMESSAGE']._serialized_end=227
-  _globals['_HEARTBEATREQUEST']._serialized_start=229
-  _globals['_HEARTBEATREQUEST']._serialized_end=280
-  _globals['_HEARTBEATRESPONSE']._serialized_start=282
-  _globals['_HEARTBEATRESPONSE']._serialized_end=334
-  _globals['_KEYVALUESTORE']._serialized_start=337
-  _globals['_KEYVALUESTORE']._serialized_end=604
+  _globals['_REQUESTVOTEMESSAGE']._serialized_start=16
+  _globals['_REQUESTVOTEMESSAGE']._serialized_end=114
+  _globals['_REQUESTVOTERESPONSE']._serialized_start=116
+  _globals['_REQUESTVOTERESPONSE']._serialized_end=167
+  _globals['_APPENDENTRIESMESSAGE']._serialized_start=170
+  _globals['_APPENDENTRIESMESSAGE']._serialized_end=314
+  _globals['_ENTRY']._serialized_start=316
+  _globals['_ENTRY']._serialized_end=372
+  _globals['_APPENDENTRIESRESPONSE']._serialized_start=374
+  _globals['_APPENDENTRIESRESPONSE']._serialized_end=427
+  _globals['_GETLEADERMESSAGE']._serialized_start=429
+  _globals['_GETLEADERMESSAGE']._serialized_end=447
+  _globals['_GETLEADERRESPONSE']._serialized_start=449
+  _globals['_GETLEADERRESPONSE']._serialized_end=509
+  _globals['_SUSPENDMESSAGE']._serialized_start=511
+  _globals['_SUSPENDMESSAGE']._serialized_end=543
+  _globals['_SUSPENDRESPONSE']._serialized_start=545
+  _globals['_SUSPENDRESPONSE']._serialized_end=562
+  _globals['_GETVALMESSAGE']._serialized_start=564
+  _globals['_GETVALMESSAGE']._serialized_end=592
+  _globals['_GETVALRESPONSE']._serialized_start=594
+  _globals['_GETVALRESPONSE']._serialized_end=657
+  _globals['_SETVALMESSAGE']._serialized_start=659
+  _globals['_SETVALMESSAGE']._serialized_end=702
+  _globals['_SETVALRESPONSE']._serialized_start=704
+  _globals['_SETVALRESPONSE']._serialized_end=737
+  _globals['_RENEWLEADERLEASEREQUEST']._serialized_start=739
+  _globals['_RENEWLEADERLEASEREQUEST']._serialized_end=805
+  _globals['_RENEWLEADERLEASERESPONSE']._serialized_start=807
+  _globals['_RENEWLEADERLEASERESPONSE']._serialized_end=850
+  _globals['_RAFTSERVICE']._serialized_start=853
+  _globals['_RAFTSERVICE']._serialized_end=1245
 # @@protoc_insertion_point(module_scope)
