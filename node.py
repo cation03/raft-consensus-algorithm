@@ -702,18 +702,18 @@ LEADER = 2
 class Node():
     def __init__(self, fellow, my_ip):
         self.addr = my_ip
-        self.node_id = int(str(my_ip)[-1])
-        self.fellow = fellow
-        self.lock = threading.Lock()
         self.DB = {}
         self.log = []
+        self.lock = threading.Lock()
         self.staged = None
         self.term = 0
-        self.status = FOLLOWER
-        self.majority = ((len(self.fellow) + 1) // 2) + 1
+        self.node_id = int(str(my_ip)[-1])
         self.voteCount = 0
+        self.status = FOLLOWER
         self.commitIdx = 0
         self.timeout_thread = None
+        self.fellow = fellow
+        self.majority = ((len(self.fellow) + 1) // 2) + 1
         self.lease_timer = None  # Lease timer
         self.lease_acquisition_allowed = True  # Flag to indicate if lease acquisition is allowed
         self.init_timeout()
@@ -760,8 +760,6 @@ class Node():
             print(f"{self.node_id} voted for {self.addr} in term {self.term}")
             # self.append_metadata(f"{self.commitIdx} {self.term} {self.node_id}")
 
-    # vote for myself, increase term, change status to candidate
-    # reset the timeout and start sending request to followers
     def startElection(self):
         self.term += 1
         self.voteCount = 0
@@ -770,12 +768,7 @@ class Node():
         self.init_timeout()
         self.incrementVote()
         self.send_vote_req()
-        
 
-    # ------------------------------
-    # ELECTION TIME CANDIDATE
-
-    # spawn threads to request vote for all followers until get reply
     def send_vote_req(self):
         for voter in self.fellow:
             threading.Thread(target=self.ask_for_vote, args=(voter, self.term)).start()
@@ -831,9 +824,6 @@ class Node():
             break
         self.append_metadata(f"{self.commitIdx} {term} {voter_id}")
 
-    # ------------------------------
-    # ELECTION TIME FOLLOWER
-
     # some other server is asking
     def decide_vote(self, term, commitIdx, staged):
         if self.term < term and self.commitIdx <= commitIdx and (
@@ -844,16 +834,13 @@ class Node():
         else:
             return False, self.term
 
-    # ------------------------------
-    # START PRESIDENT
-
     def startHeartBeat(self):
         self.dump_logs(f"Leader {self.addr} sending heartbeat & Renewing Lease")
         print("Starting HEARTBEAT")
         if self.staged:
             self.handle_put(self.staged)
 
-        if self.lease_acquisition_allowed:
+        if self.lease_acquisition_allowed == True:
             self.start_lease_timer()
             self.replicate_lease_interval()
 
@@ -886,7 +873,6 @@ class Node():
         utils.send(follower, route, message)
 
     def update_follower_commitIdx(self, follower):
-        route = "heartbeat"
         first_message = {"term": self.term, "addr": self.addr}
         second_message = {
             "term": self.term,
@@ -894,33 +880,36 @@ class Node():
             "action": "commit",
             "payload": self.log[-1]
         }
+        route = "heartbeat"
+        
         reply = utils.send(follower, route, first_message)
-        if reply and reply.json()["commitIdx"] < self.commitIdx:
-            reply = utils.send(follower, route, second_message)
+        
+        if reply != None:
+            if reply.json()["commitIdx"] < self.commitIdx:
+                reply = utils.send(follower, route, second_message)
 
     def send_heartbeat(self, follower):
         if self.log:
             self.update_follower_commitIdx(follower)
 
-        route = "heartbeat"
         message = {"term": self.term, "addr": self.addr}
+        route = "heartbeat"
         while self.status == LEADER:
             start = time.time()
             reply = utils.send(follower, route, message)
             if reply:
                 self.heartbeat_reply_handler(reply.json()["term"],
                                              reply.json()["commitIdx"])
-            delta = time.time() - start
-            time.sleep((cfg.HB_TIME - delta) / 1000)
+            curr_time = time.time()
+            delta = curr_time - start
+            diff = cfg.HB_TIME - delta
+            time.sleep(diff / 1000)
 
     def heartbeat_reply_handler(self, term, commitIdx):
-        if term > self.term:
-            self.term = term
+        if self.term < term:
             self.status = FOLLOWER
+            self.term = term
             self.init_timeout()
-
-    # ------------------------------
-    # FOLLOWER STUFF
 
     def reset_timeout(self):
         self.election_time = time.time() + utils.random_timeout()
@@ -965,38 +954,40 @@ class Node():
 
     def init_timeout(self):
         self.reset_timeout()
-        if self.timeout_thread and self.timeout_thread.is_alive():
-            return
+        if self.timeout_thread:
+            if self.timeout_thread.is_alive():
+                return
         self.timeout_thread = threading.Thread(target=self.timeout_loop)
         self.timeout_thread.start()
 
     def timeout_loop(self):
         while self.status != LEADER:
             delta = self.election_time - time.time()
-            if delta < 0:
-                self.startElection()
-            else:
+            if delta >= 0:
                 time.sleep(delta)
-
+            else:
+                self.startElection()
+                
     def handle_get(self, payload):
         self.dump_logs(f"Node {self.addr} (leader) received a GET request")
         print("getting", payload)
         key = payload.get("key")
         if key is None:
             return None
-        if key in self.DB:
+        if key not in self.DB:
+            return None
+        else:
             payload["value"] = self.DB[key]
             return payload
-        else:
-            return None
 
     def spread_update(self, message, confirmations=None, lock=None):
         for i, each in enumerate(self.fellow):
             r = utils.send(each, "heartbeat", message)
-            if r and confirmations:
-                # CONSIDER COMMENTING
-                print(f" - - {message['action']} by {each}")
-                confirmations[i] = True
+            if r:
+                if confirmations:
+                    # CONSIDER COMMENTING
+                    print(f" - - {message['action']} by {each}")
+                    confirmations[i] = True
         if lock:
             lock.release()
 
@@ -1006,10 +997,10 @@ class Node():
             return False
 
         self.dump_logs(f"Node {self.addr} (leader) received a PUT request")
-        print("putting", payload)
         self.lock.acquire()
-        self.staged = payload
+        print("putting", payload)
         waited = 0
+        self.staged = payload
         log_message = {
             "term": self.term,
             "addr": self.addr,
@@ -1019,12 +1010,13 @@ class Node():
         }
         log_confirmations = [False] * len(self.fellow)
         threading.Thread(target=self.spread_update, args=(log_message, log_confirmations)).start()
-        while sum(log_confirmations) + 1 < self.majority:
+        while self.majority - 1 > sum(log_confirmations):
             waited += 0.0005
             time.sleep(0.0005)
-            if waited > cfg.MAX_LOG_WAIT / 1000:
-                self.dump_logs(f"Waited {cfg.MAX_LOG_WAIT} ms, update rejected:")
+            max_wait = cfg.MAX_LOG_WAIT / 1000
+            if waited > max_wait:
                 print(f"waited {cfg.MAX_LOG_WAIT} ms, update rejected:")
+                self.dump_logs(f"Waited {cfg.MAX_LOG_WAIT} ms, update rejected:")
                 self.lock.release()
                 return False
         commit_message = {
@@ -1036,17 +1028,16 @@ class Node():
         }
         self.commit()
         threading.Thread(target=self.spread_update, args=(commit_message, None, self.lock)).start()
-        self.dump_logs("Majority reached, replied to client, sending message to commit")
-        #add log message in same format to logs.txt along with term
-        self.append_to_log(f"SET {payload['key']} {payload['value']} {self.term}")
         print("majority reached, replied to client, sending message to commit")
+        self.dump_logs("Majority reached, replied to client, sending message to commit")
+        self.append_to_log(f"SET {payload['key']} {payload['value']} {self.term}")
         return True
 
     def commit(self):
         self.commitIdx += 1
         self.log.append(self.staged)
-        key = self.staged["key"]
         value = self.staged["value"]
+        key = self.staged["key"]
         self.DB[key] = value
         self.staged = None
 
