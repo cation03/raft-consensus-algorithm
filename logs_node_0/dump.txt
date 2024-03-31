@@ -129,3 +129,6 @@ Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
 Leader http://127.0.0.1:5000 lease renewal failed. Stepping Down.
 Node http://127.0.0.1:5000 (follower) received an log request
 Node http://127.0.0.1:5000 (follower) received an commit request
+Node initialized
+Node initialized
+Node initialized
