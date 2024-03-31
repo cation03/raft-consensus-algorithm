@@ -8,54 +8,47 @@ import random
 import math
 from concurrent import futures
 
-# Config file has servers addresses that'll be stored in servers.
-CONFIG_PATH = "config.conf"  # overwrite this with your config file path
 SERVERS = {}
+CONFIG_PATH = "config.conf"
 
-# Server identifying variables.
-TERM, VOTED, STATE, VOTES = 0, False, "Follower", 0
 LEADER_ID = None
-IN_ELECTIONS = False
+TERM, VOTED, STATE, VOTES = 0, False, "Follower", 0
 SERVER_ID = int(sys.argv[1])
-VOTED_NODE = -1
+IN_ELECTIONS = False
 SERVER_ACTIVE = True
-# Time limit in seconds for timouts, and timer to set the time limit for certain functionalities.
-TIME_LIMIT = (random.randrange(150, 301) / 100)
+VOTED_NODE = -1
+
 LATEST_TIMER = -1
+TIME_LIMIT = (random.randrange(150, 301) / 100)
 LEADER_LEASE_DURATION = 5000
-# Threads used to request votes from servers as a candidate, and to append entries as a leader.
-CANDIDATE_THREADS = []
+
 LEADER_THREADS = []
+CANDIDATE_THREADS = []
 
-# Commit Index is index of last log entry on server
-# Last applied is index of last applied log entry on server
 commitIndex, lastApplied, lastLogTerm = 0, 0, 0
-# For applied commits.
+
 ENTRIES = {}
-# For non-applied commits.
-LOGS = []
+
 LEADER_LEASE_EXPIRATION = None
+LOGS = []
 
-# NextIndex: list of indices of next log entry to send to server
-# MatchIndex: list of indices of latest log entry known to be on every server
 nextIndex, matchIndex = [], []
-matchTerm = []
 n_logs_replicated = 1
-
+matchTerm = []
 
 class RaftHandler(pb2_grpc.RaftServiceServicer):
 
     def RequestVote(self, request, context):
-        global TERM, VOTED, STATE, VOTED_NODE, IN_ELECTIONS, LATEST_TIMER
         global commitIndex, lastLogTerm
-        candidate_term, candidate_id = request.term, request.candidateId
+        global TERM, VOTED, STATE, VOTED_NODE, IN_ELECTIONS, LATEST_TIMER
         candidateLastLogIndex, candidateLastLogTerm = request.lastLogIndex, request.lastLogTerm
+        candidate_term, candidate_id = request.term, request.candidateId
 
         IN_ELECTIONS = True
         if TERM < candidate_term:
-            TERM = candidate_term
-            VOTED = True
             VOTED_NODE = None
+            VOTED = True
+            TERM = candidate_term
             print(f"Did not vote for {candidate_id}.")
             run_follower()
         if len(LOGS) > 0:
@@ -75,20 +68,20 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
 
     # This function is used by leader to append entries in followers.
     def AppendEntries(self, request, context):
-        global TERM, STATE, LEADER_ID, VOTED, VOTED_NODE
         global LATEST_TIMER, commitIndex, ENTRIES, lastApplied
+        global TERM, STATE, LEADER_ID, VOTED, VOTED_NODE
 
-        leader_term, leader_id = request.term, request.leaderId
         prevLogIndex, prevLogTerm = request.prevLogIndex, request.prevLogTerm
-        entries, leaderCommit = request.entries, request.leaderCommit
+        leader_term, leader_id = request.term, request.leaderId
         result = False
+        entries, leaderCommit = request.entries, request.leaderCommit
         if leader_term >= TERM:
             # Leader is already in a different term than mine.
             if leader_term > TERM:
-                VOTED = False
                 VOTED_NODE = -1
-                TERM = leader_term
+                VOTED = False
                 LEADER_ID = leader_id
+                TERM = leader_term
                 run_follower()
 
             if prevLogIndex <= len(LOGS):
@@ -98,10 +91,11 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
 
                 if leaderCommit > commitIndex:
                     commitIndex = min(leaderCommit, len(LOGS))
-                    while commitIndex > lastApplied:
-                        key, value = LOGS[lastApplied]["ENTRY"]["key"], LOGS[lastApplied]["ENTRY"]["value"]
-                        ENTRIES[key] = value
+                    while min(leaderCommit, len(LOGS)) > lastApplied:
+                        key = LOGS[lastApplied]["ENTRY"]["key"]
+                        value = LOGS[lastApplied]["ENTRY"]["value"]
                         lastApplied += 1
+                        ENTRIES[key] = value
 
 
             reset_timer(leader_died, TIME_LIMIT)
@@ -110,13 +104,13 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
 
     # This function is called from the client to get leader.
     def GetLeader(self, request, context):
-        global IN_ELECTIONS, VOTED, VOTED_NODE, LEADER_ID
         print("Command from client: getleader")
-        if IN_ELECTIONS and not VOTED:
+        global IN_ELECTIONS, VOTED, VOTED_NODE, LEADER_ID
+        if IN_ELECTIONS == True and VOTED == False:
             print("None None")
             return pb2.GetLeaderResponse(**{"leaderId": -1, "leaderAddress": "-1"})
 
-        if IN_ELECTIONS:
+        if IN_ELECTIONS == True:
             print(f"{VOTED_NODE} {SERVERS[VOTED_NODE]}")
             return pb2.GetLeaderResponse(**{"leaderId": VOTED_NODE, "leaderAddress": SERVERS[VOTED_NODE]})
 
@@ -124,18 +118,18 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
 
     # This function is called from client to suspend server for PERIOD seconds.
     def Suspend(self, request, context):
-        global SERVER_ACTIVE
         SUSPEND_PERIOD = int(request.period)
-        print(f"Command from client: suspend {SUSPEND_PERIOD}")
-        print(f"Sleeping for {SUSPEND_PERIOD} seconds")
+        global SERVER_ACTIVE
         SERVER_ACTIVE = False
-        time.sleep(SUSPEND_PERIOD)
-        reset_timer(run_server_role(), SUSPEND_PERIOD)
+        print(f"Sleeping for {int(request.period)} seconds")
+        print(f"Command from client: suspend {int(request.period)}")
+        time.sleep(int(request.period))
+        reset_timer(run_server_role(), int(request.period))
         return pb2.SuspendResponse(**{})
 
     def SetVal(self, request, context):
-        key, val = request.key, request.value
         global STATE, SERVERS, LEADER_ID, LOGS, TERM
+        key, val = request.key, request.value
         if STATE != "Leader":
             return pb2.SetValResponse(success=False)
         
@@ -149,8 +143,8 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
 
 
     def GetVal(self, request, context):
-        key = request.key
         global ENTRIES, STATE, LEADER_ID, SERVERS
+        key = request.key
         if STATE == "Leader":
             # If this server is the leader, directly retrieve the value
             if key in ENTRIES:
@@ -161,10 +155,9 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
         else:
             # If this server is not the leader, redirect the client to the leader
             try:
-                leader_address = SERVERS[LEADER_ID]
-                channel = grpc.insecure_channel(leader_address)
-                stub = pb2_grpc.RaftServiceStub(channel)
+                channel = grpc.insecure_channel(SERVERS[LEADER_ID])
                 request = pb2.GetValMessage(key=key)
+                stub = pb2_grpc.RaftServiceStub(channel)
                 response = stub.GetVal(request)
                 return response
             except grpc.RpcError as e:
@@ -179,8 +172,7 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
         global LEADER_LEASE_EXPIRATION, LEADER_ID, LEADER_LEASE_DURATION
         if request.leaderId == LEADER_ID:
             # Renew leader lease by updating the expiration time
-            lease_duration_ms = request.leaseDuration
-            LEADER_LEASE_EXPIRATION = time.time() + (lease_duration_ms / 1000)
+            LEADER_LEASE_EXPIRATION = time.time() + (request.leaseDuration / 1000)
             return pb2.RenewLeaderLeaseResponse(success=True)
         else:
             return pb2.RenewLeaderLeaseResponse(success=False)
@@ -189,7 +181,7 @@ class RaftHandler(pb2_grpc.RaftServiceServicer):
 def check_leader_lease():
     global LEADER_LEASE_EXPIRATION, LEADER_LEASE_DURATION
     while True:
-        if LEADER_LEASE_EXPIRATION is not None and time.time() > LEADER_LEASE_EXPIRATION:
+        if LEADER_LEASE_EXPIRATION and time.time() > LEADER_LEASE_EXPIRATION:
             print("Leader lease expired. Transitioning to follower.")
             run_follower()
             break
@@ -208,11 +200,12 @@ def read_config(path):
 
 def leader_died():
     global STATE
-    if STATE != "Follower":
+    if STATE == "Follower":
+        print("The leader is dead")
+        STATE = "Candidate"
+        run_candidate()
+    else:
         return
-    print("The leader is dead")
-    STATE = "Candidate"
-    run_candidate()
 
 def run_follower():
     global STATE
@@ -228,9 +221,9 @@ def get_vote(server):
         request = pb2.RequestVoteMessage(**{"term": TERM, "candidateId": SERVER_ID})
         response = stub.RequestVote(request)
         if response.term > TERM:
-            TERM = response.term
-            STATE = "Follower"
             TIME_LIMIT = (random.randrange(150, 301) / 1000)
+            STATE = "Follower"
+            TERM = response.term
             reset_timer(leader_died, TIME_LIMIT)
         if response.result:
             VOTES += 1
@@ -243,28 +236,29 @@ def process_votes():
     for thread in CANDIDATE_THREADS:
         thread.join(0)
     print("Votes received")
-    if VOTES > len(SERVERS) / 2:
+    boundary = len(SERVERS) / 2
+    if VOTES > boundary:
         print(f"I am a leader. Term: {TERM}")
-        STATE = "Leader"
         LEADER_ID = SERVER_ID
+        STATE = "Leader"
         # reset_timer(leader_died, TIME_LIMIT)
-        nextIndex = [len(LOGS) for i in range(len(SERVERS))]
         matchIndex = [0 for i in range(len(SERVERS))]
+        nextIndex = [len(LOGS) for i in range(len(SERVERS))]
         run_leader()
     else:
-        STATE = "Follower"
         TIME_LIMIT = (random.randrange(150, 301) / 1000)
+        STATE = "Follower"
         run_follower()
 
 def run_candidate():
-    global TERM, STATE, LEADER_ID, LATEST_TIMER, TIME_LIMIT, IN_ELECTIONS, VOTED_NODE
     global SERVER_ID, VOTES, CANDIDATE_THREADS, VOTED
-    TERM += 1
+    global TERM, STATE, LEADER_ID, LATEST_TIMER, TIME_LIMIT, IN_ELECTIONS, VOTED_NODE
     IN_ELECTIONS = True
-    VOTED_NODE = SERVER_ID
+    TERM += 1
     CANDIDATE_THREADS = []
-    VOTES = 1
+    VOTED_NODE = SERVER_ID
     VOTED = True
+    VOTES = 1
     print(f"I'm a candidate. Term: {TERM}.\nVoted for node {SERVER_ID}")
     # Requesting votes.
     for key, value in SERVERS.items():
@@ -279,13 +273,14 @@ def run_candidate():
 
 def replicate_log(key, server):
     global LOGS, STATE, matchIndex, matchTerm, nextIndex, n_logs_replicated
-    leaderCommit = commitIndex
     prevLogIndex = matchIndex[key]
-    log=[]
+    leaderCommit = commitIndex
     prevLogTerm = TERM
+    log=[]
     if nextIndex[key] < len(LOGS):
-        # {"commandType": "set", "key": request.key, "value": request.value}
-        log = [{"commandType": "set", "key": LOGS[nextIndex[key]-1]["ENTRY"]["key"], "value": LOGS[nextIndex[key]-1]["ENTRY"]["value"]}]
+        log_key = LOGS[nextIndex[key]-1]["ENTRY"]["key"]
+        log_val = LOGS[nextIndex[key]-1]["ENTRY"]["value"]
+        log = [{"commandType": "set", "key": log_key, "value": log_val}]
         prevLogTerm = LOGS[prevLogIndex]["TERM"]
     try:
         channel = grpc.insecure_channel(server)
@@ -299,13 +294,13 @@ def replicate_log(key, server):
             reset_timer(leader_died, TIME_LIMIT)
             run_follower()
         if response.result:
-            if log!= []:
+            if log != []:
                 matchIndex[key] = nextIndex[key]
-                nextIndex[key] += 1
                 n_logs_replicated += 1
+                nextIndex[key] += 1
         else:
+            matchIndex[key] = min(matchIndex[key], nextIndex[key]-2)
             nextIndex[key] -= 1 
-            matchIndex[key] = min(matchIndex[key], nextIndex[key]-1)
     except grpc.RpcError:
         pass
 
@@ -336,19 +331,18 @@ def run_leader():
         return
 
     # Send messages after 50 milliseconds.
-    LEADER_THREADS = []
     n_logs_replicated = 1
+    LEADER_THREADS = []
     for key in SERVERS:
-        if SERVER_ID is key:
-            continue
-        LEADER_THREADS.append(Thread(target=replicate_log, kwargs={'key': key, 'server': SERVERS[key]}))
+        if SERVER_ID is not key:
+            LEADER_THREADS.append(Thread(target=replicate_log, kwargs={'key': key, 'server': SERVERS[key]}))
     for thread in LEADER_THREADS:
         thread.start()
     if len(LOGS) > len(ENTRIES):
         key, value = LOGS[lastApplied]["ENTRY"]["key"], LOGS[lastApplied]["ENTRY"]["value"]
+        commitIndex += 1
         ENTRIES[key] = value
         lastApplied += 1
-        commitIndex += 1
     # Reset the timer with the leader lease duration
     reset_timer(run_server_role, LEADER_LEASE_DURATION)
 
