@@ -5,22 +5,20 @@ import grpc
 import server_pb2
 import server_pb2_grpc
 
-
 def random_timeout():
-    return random.randrange(cfg.LOW_TIMEOUT, cfg.HIGH_TIMEOUT) / 1000
-
+    low = cfg.LOW_TIMEOUT
+    high = cfg.HIGH_TIMEOUT
+    return random.randrange(low, high) / 1000
 
 def send(addr, route, message):
-    url = addr + '/' + route
     try:
+        timeout = cfg.REQUESTS_TIMEOUT / 1000
         reply = requests.post(
-            url=url,
+            url = addr + '/' + route,
             json=message,
-            timeout=cfg.REQUESTS_TIMEOUT / 1000,
+            timeout=timeout,
         )
-    # failed to send request
     except Exception as e:
-        # print(e)
         return None
 
     if reply.status_code == 200:
