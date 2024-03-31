@@ -419,46 +419,36 @@ def value_put():
         reply = {"code": "fail", "message": n.leader}
     return jsonify(reply)
 
+# disable logging
+log = logging.getLogger('werkzeug')
+log.disabled = True
 
-# we reply to vote request
 @app.route("/vote_req", methods=['POST'])
 def vote_req():
-    # also need to let me know whether up-to-date or not
-    term = request.json["term"]
     commitIdx = request.json["commitIdx"]
-    staged = request.json["staged"]
+    term, staged = request.json["term"], request.json["staged"]
     choice, term = n.decide_vote(term, commitIdx, staged)
-    message = {"choice": choice, "term": term}
-    return jsonify(message)
-
+    return jsonify({"choice": choice, "term": term})
 
 @app.route("/heartbeat", methods=['POST'])
 def heartbeat():
     term, commitIdx = n.heartbeat_follower(request.json)
-    # return anyway, if nothing received by leader, we are dead
-    message = {"term": term, "commitIdx": commitIdx}
-    return jsonify(message)
-
-
-# disable flask logging
-log = logging.getLogger('werkzeug')
-log.disabled = True
-
+    return jsonify({"term": term, "commitIdx": commitIdx})
 
 if __name__ == "__main__":
     # python server.py index ip_list
     if len(sys.argv) == 3:
         index = int(sys.argv[1])
-        ip_list_file = sys.argv[2]
         ip_list = []
-        # open ip list file and parse all the ips
+        ip_list_file = sys.argv[2]
+        
         with open(ip_list_file) as f:
             for ip in f:
                 ip_list.append(ip.strip())
+        
         my_ip = ip_list.pop(index)
-
         http, host, port = my_ip.split(':')
-        # initialize node with ip list and its own ip
+        
         n = Node(ip_list, my_ip)
 
         cli = sys.modules['flask.cli']
@@ -474,8 +464,8 @@ if __name__ == '__main__':
     # Redirect standard output and error streams to /dev/null
     with open(os.devnull, 'w') as f:
         import sys
-        sys.stdout = f
         sys.stderr = f
+        sys.stdout = f
         
         cli = sys.modules['flask.cli']
         cli.show_server_banner = lambda *x: None
