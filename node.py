@@ -941,8 +941,9 @@ class Node():
             if "action" in msg:
                 self.dump_logs(f"Node {self.addr} (follower) received an {msg['action']} request")
                 print("received action", msg)
-                # append to log
-                self.append_to_log(f"{msg['action']} {msg['payload']}")
+                # append to log only if action is commit
+                if msg["action"] == "commit":
+                    self.append_to_log(f"SET {msg['payload']['key']} {msg['payload']['value']} {self.term}")
                 if msg["action"] == "log":
                     self.staged = msg.get("payload")
                 elif msg.get("commitIdx") is not None and self.commitIdx <= msg.get("commitIdx"):
@@ -1036,6 +1037,8 @@ class Node():
         self.commit()
         threading.Thread(target=self.spread_update, args=(commit_message, None, self.lock)).start()
         self.dump_logs("Majority reached, replied to client, sending message to commit")
+        #add log message in same format to logs.txt along with term
+        self.append_to_log(f"SET {payload['key']} {payload['value']} {self.term}")
         print("majority reached, replied to client, sending message to commit")
         return True
 
