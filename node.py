@@ -745,25 +745,22 @@ class Node():
         with open(self.metadata_file, "w") as f:
             f.write(f"0 {self.term} None\n")
 
-    # increment only when we are candidate and receive positive vote
-    # change status to LEADER and start heartbeat as soon as we reach majority
     def incrementVote(self):
         self.voteCount += 1
         self.append_metadata(f"{self.commitIdx} {self.term} {self.node_id}")
         if self.voteCount >= self.majority:
             self.status = LEADER
             self.startHeartBeat()
-            # self.append_metadata(f"{self.commitIdx} {self.term} {self.addr}")
+            
             self.dump_logs(f"Node {self.addr} became the leader for term {self.term}")
             print(f"{self.addr} becomes the leader of term {self.term}")
         else:
             print(f"{self.node_id} voted for {self.addr} in term {self.term}")
-            # self.append_metadata(f"{self.commitIdx} {self.term} {self.node_id}")
 
     def startElection(self):
-        self.term += 1
-        self.voteCount = 0
         self.status = CANDIDATE
+        self.voteCount = 0
+        self.term += 1
         # self.initiate_metadata()  # Reset metadata file for new term
         self.init_timeout()
         self.incrementVote()
@@ -772,43 +769,22 @@ class Node():
     def send_vote_req(self):
         for voter in self.fellow:
             threading.Thread(target=self.ask_for_vote, args=(voter, self.term)).start()
-
-    # # request vote to other servers during given election term
-    # def ask_for_vote(self, voter, term):
-    #     message = {
-    #         "term": term,
-    #         "commitIdx": self.commitIdx,
-    #         "staged": self.staged
-    #     }
-    #     route = "vote_req"
-    #     while self.status == CANDIDATE and self.term == term:
-    #         reply = utils.send(voter, route, message)
-    #         if reply:
-    #             choice = reply.json()["choice"]
-    #             print("RECEIVED VOTE", choice, "from", voter)
-    #             if choice and self.status == CANDIDATE:
-    #                 self.incrementVote()
-    #             elif not choice:
-    #                 term = reply.json()["term"]
-    #                 if term > self.term:
-    #                     self.term = term
-    #                     self.status = FOLLOWER
-    #             break
             
     def ask_for_vote(self, voter, term):
         message = {
-            "term": term,
             "commitIdx": self.commitIdx,
+            "term": term,
             "staged": self.staged
         }
-        route = "vote_req"
         voter_id = self.node_id
-        while self.status == CANDIDATE and self.term == term:
+        route = "vote_req"
+
+        while self.term == term and self.status == CANDIDATE:
             reply = utils.send(voter, route, message)
             if reply:
-                choice = reply.json()["choice"]
                 voter_id = int(str(voter)[-1])  # Extract voter's node ID from its IP address
-                if choice:
+                choice = reply.json()["choice"]
+                if choice is not None:
                     self.incrementVote()
                     # vote_info = f"Voted for Node {voter_id} in term {term}, commitIdx {self.commitIdx}"
                     # print(vote_info)
@@ -816,9 +792,9 @@ class Node():
                     # Append metadata indicating the voted node's ID
                 elif not choice:
                     term = reply.json()["term"]
-                    if term > self.term:
-                        self.term = term
+                    if self.term < term:
                         self.status = FOLLOWER
+                        self.term = term
                         # self.append_to_log(f"Received higher term {term}, converting to follower")
                         break
             break
@@ -826,8 +802,8 @@ class Node():
 
     # some other server is asking
     def decide_vote(self, term, commitIdx, staged):
-        if self.term < term and self.commitIdx <= commitIdx and (
-                staged or (self.staged == staged)):
+        bool_condition = (staged or (self.staged == staged))
+        if self.term < term and self.commitIdx <= commitIdx and bool_condition:
             self.reset_timeout()
             self.term = term
             return True, self.term
@@ -840,7 +816,7 @@ class Node():
         if self.staged:
             self.handle_put(self.staged)
 
-        if self.lease_acquisition_allowed == True:
+        if self.lease_acquisition_allowed:
             self.start_lease_timer()
             self.replicate_lease_interval()
 
@@ -876,15 +852,15 @@ class Node():
         first_message = {"term": self.term, "addr": self.addr}
         second_message = {
             "term": self.term,
+            "payload": self.log[-1],
             "addr": self.addr,
             "action": "commit",
-            "payload": self.log[-1]
         }
         route = "heartbeat"
         
         reply = utils.send(follower, route, first_message)
         
-        if reply != None:
+        if reply is not None:
             if reply.json()["commitIdx"] < self.commitIdx:
                 reply = utils.send(follower, route, second_message)
 
@@ -892,11 +868,11 @@ class Node():
         if self.log:
             self.update_follower_commitIdx(follower)
 
-        message = {"term": self.term, "addr": self.addr}
         route = "heartbeat"
+        message = {"term": self.term, "addr": self.addr}
         while self.status == LEADER:
-            start = time.time()
             reply = utils.send(follower, route, message)
+            start = time.time()
             if reply:
                 self.heartbeat_reply_handler(reply.json()["term"],
                                              reply.json()["commitIdx"])
@@ -924,7 +900,7 @@ class Node():
             elif self.status == LEADER:
                 self.status = FOLLOWER
                 self.init_timeout()
-            if self.term < term:
+            if term > self.term:
                 self.term = term
 
             if "action" in msg:
@@ -1003,10 +979,10 @@ class Node():
         self.staged = payload
         log_message = {
             "term": self.term,
-            "addr": self.addr,
             "payload": payload,
+            "addr": self.addr,
+            "commitIdx": self.commitIdx,
             "action": "log",
-            "commitIdx": self.commitIdx
         }
         log_confirmations = [False] * len(self.fellow)
         threading.Thread(target=self.spread_update, args=(log_message, log_confirmations)).start()
@@ -1021,10 +997,10 @@ class Node():
                 return False
         commit_message = {
             "term": self.term,
-            "addr": self.addr,
             "payload": payload,
+            "addr": self.addr,
+            "commitIdx": self.commitIdx,
             "action": "commit",
-            "commitIdx": self.commitIdx
         }
         self.commit()
         threading.Thread(target=self.spread_update, args=(commit_message, None, self.lock)).start()
@@ -1035,11 +1011,11 @@ class Node():
 
     def commit(self):
         self.commitIdx += 1
-        self.log.append(self.staged)
         value = self.staged["value"]
         key = self.staged["key"]
-        self.DB[key] = value
+        self.log.append(self.staged)
         self.staged = None
+        self.DB[key] = value
 
     def vote_granted(self, candidate_node_id, term):
         self.dump_logs(f"Vote granted for Node {candidate_node_id} in term {term}.")
