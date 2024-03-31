@@ -19,7 +19,7 @@ def value_get():
             reply = {"code": "success", "payload": result}
     elif n.status == FOLLOWER:
         # redirect request
-        reply["payload"]["message"] = n.leader
+        reply = {"code": "redirect", "message": n.leader, "payload": payload}
     return jsonify(reply)
 
 
@@ -35,8 +35,7 @@ def value_put():
             reply = {"code": "success"}
     elif n.status == FOLLOWER:
         # redirect request
-        payload["message"] = n.leader
-        reply["payload"] = payload
+        reply = {"code": "fail", "message": n.leader}
     return jsonify(reply)
 
 
