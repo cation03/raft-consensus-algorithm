@@ -753,6 +753,7 @@ class Node():
             self.startHeartBeat()
             
             self.dump_logs(f"Node {self.addr} became the leader for term {self.term}")
+            self.append_to_log(f"NO-OP {self.term}")
             print(f"{self.addr} becomes the leader of term {self.term}")
         else:
             print(f"{self.node_id} voted for {self.addr} in term {self.term}")
