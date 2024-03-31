@@ -1,11 +1,10 @@
 # timing variables
 class cfg():
     # in ms
-    LOW_TIMEOUT = 150
-    HIGH_TIMEOUT = 300
+    LOW_TIMEOUT = 1500
+    HIGH_TIMEOUT = 3000
 
-    REQUESTS_TIMEOUT = 50
-    HB_TIME = 50
-    MAX_LOG_WAIT = 50
-    # Configuration for leader lease duration in seconds
-    LEASE_INTERVAL = 10  # Example value, adjust as needed
+    REQUESTS_TIMEOUT = 500
+    HB_TIME = 750
+    MAX_LOG_WAIT = 500
+    LEASE_INTERVAL = 10000
